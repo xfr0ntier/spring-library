@@ -53,8 +53,8 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
         }
 
         BorrowRecord record = new BorrowRecord();
-        record.setBookId(recordDTO.getBookId());
-        record.setPatronId(recordDTO.getPatronId());
+        record.setBook(this.bookService.getBookById(recordDTO.getBookId()));
+        record.setPatron(this.patronService.getPatronById(recordDTO.getPatronId()));
 
         if (recordDTO.getBorrowedAt() == null) {
             record.setBorrowedAt(this.appUtils.convertLocalDateTimeToTimestamp(LocalDateTime.now()));

@@ -1,7 +1,6 @@
 package com.librarify.api.entities;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -9,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,11 +28,13 @@ public class BorrowRecord {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "book_id", nullable = false)
-    private UUID bookId;
+    @ManyToOne
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
 
-    @Column(name = "patron_id", nullable = false)
-    private UUID patronId;
+    @ManyToOne
+    @JoinColumn(name = "patron_id", nullable = false)
+    private Patron patron;
 
     @Column(name = "borrowed_at")
     private Timestamp borrowedAt;
@@ -45,9 +48,9 @@ public class BorrowRecord {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    public BorrowRecord(UUID bookId, UUID patronId, LocalDateTime borrowedAt) {
-        this.bookId = bookId;
-        this.patronId = patronId;
-        this.borrowedAt = Timestamp.from(borrowedAt.toInstant(null));
+    public BorrowRecord(Book book, Patron patron, Timestamp borrowedAt) {
+        this.book = book;
+        this.patron = patron;
+        this.borrowedAt = borrowedAt;
     }
 }
