@@ -23,4 +23,9 @@ public class BookDTO {
     private String edition;
 
     private String language;
+
+    public BookDTO(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
 }
