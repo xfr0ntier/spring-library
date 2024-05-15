@@ -9,8 +9,11 @@ Before getting starting with the application we should setup Postgres and run th
 
 1. install postgres either using Docker or installing it according to your system
     1.1 Docker you can follow [this guide](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/#How-to-run-Postgres-in-Docker)
+
     1.2 Ubuntu or any debian based system follow [this guide](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
+
     1.3 MacOS follow [this guide](https://www.postgresqltutorial.com/postgresql-getting-started/install-postgresql-macos/)
+
     1.4 Windows follow [this guide](https://www.postgresqltutorial.com/postgresql-getting-started/install-postgresql/)
 
 2. run the DDL scripts attached with the project, can be found in `<project>/src/main/resources/scripts/schema.sql`
