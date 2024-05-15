@@ -1,0 +1,33 @@
+server:
+  port: 8000
+  servlet:
+    # versioning is recommended i.e. /api/v1
+    context-path: /api
+
+spring:
+  application:
+    name: api
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        "[format_sql]": true
+        "[use_sql_comments]": true
+
+  datasource:
+    hikari:
+      schema: public
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/playground
+    username: bookworm
+    password: $Mbj3STPYQdH7wzCA5CoM7hX^Vf9F^duNskr9v7vs5JoV2FL2caCFMAo@s&$@Eg%
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
