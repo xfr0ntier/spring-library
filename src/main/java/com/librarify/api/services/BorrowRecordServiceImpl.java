@@ -2,9 +2,12 @@ package com.librarify.api.services;
 
 import java.time.LocalDateTime;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import com.librarify.api.common.AppUtils;
+import com.librarify.api.common.exceptions.ResourceNotFoundException;
+import com.librarify.api.common.utils.AppUtils;
 import com.librarify.api.dtos.BorrowRecordDTO;
 import com.librarify.api.entities.BorrowRecord;
 import com.librarify.api.repositories.interfaces.BorrowRecordRepository;
@@ -36,11 +39,17 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
     @Override
     public BorrowRecord registerBorrow(BorrowRecordDTO recordDTO) {
         if (this.patronService.getPatronById(recordDTO.getPatronId()) == null) {
-            // TODO: throw Patron not found
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Patron not found",
+                    new ResourceNotFoundException("Patron not found"));
         }
 
         if (this.bookService.getBookById(recordDTO.getBookId()) == null) {
-            // TODO: throw Book not found
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Book not found",
+                    new ResourceNotFoundException("Book not found"));
         }
 
         BorrowRecord record = new BorrowRecord();
@@ -73,8 +82,10 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
             return this.borrowRecordRepository.updateBorrowRecord(record);
 
         } catch (NoResultException e) {
-            // TODO: throw Borrow not found
-            return null;
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Borrow record not found",
+                    new ResourceNotFoundException("Borrow record not found"));
         }
     }
 }

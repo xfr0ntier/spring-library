@@ -1,4 +1,4 @@
-package com.librarify.api.common;
+package com.librarify.api.common.utils;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

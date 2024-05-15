@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import com.librarify.api.common.AppUtils;
+import com.librarify.api.common.exceptions.ResourceNotFoundException;
+import com.librarify.api.common.utils.AppUtils;
 import com.librarify.api.dtos.BookDTO;
 import com.librarify.api.entities.Book;
 import com.librarify.api.repositories.interfaces.BookRepository;
@@ -43,9 +46,10 @@ public class BookServiceImpl implements BookService {
             return res.get();
         }
 
-        // TODO: throw Book not found
-
-        return null;
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Book not found",
+                new ResourceNotFoundException("Book not found"));
     }
 
     @Override
@@ -66,8 +70,10 @@ public class BookServiceImpl implements BookService {
             return this.bookRepository.save(book);
         }
 
-        // TODO: throw Book not found
-        return null;
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Book not found",
+                new ResourceNotFoundException("Book not found"));
     }
 
     @Override
@@ -78,6 +84,9 @@ public class BookServiceImpl implements BookService {
             this.bookRepository.deleteById(id);
         }
 
-        // TODO: throw Book not found
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Book not found",
+                new ResourceNotFoundException("Book not found"));
     }
 }

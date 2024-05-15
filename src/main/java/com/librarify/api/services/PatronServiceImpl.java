@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import com.librarify.api.common.AppUtils;
+import com.librarify.api.common.exceptions.ResourceNotFoundException;
+import com.librarify.api.common.utils.AppUtils;
 import com.librarify.api.dtos.PatronDTO;
 import com.librarify.api.entities.Patron;
 import com.librarify.api.repositories.interfaces.PatronRepository;
@@ -42,9 +45,10 @@ public class PatronServiceImpl implements PatronService {
             return res.get();
         }
 
-        // TODO: throw Patron not found
-
-        return null;
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Patron not found",
+                new ResourceNotFoundException("Patron not found"));
     }
 
     @Override
@@ -63,8 +67,10 @@ public class PatronServiceImpl implements PatronService {
             return this.patronRepository.save(patron);
         }
 
-        // TODO: throw Patron not found
-        return null;
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Patron not found",
+                new ResourceNotFoundException("Patron not found"));
     }
 
     @Override
@@ -75,7 +81,10 @@ public class PatronServiceImpl implements PatronService {
             this.patronRepository.deleteById(id);
         }
 
-        // TODO: throw Patron not found
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Patron not found",
+                new ResourceNotFoundException("Patron not found"));
     }
 
 }
